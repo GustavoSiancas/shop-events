@@ -1,13 +1,15 @@
 import { useState } from 'react'
-import { AtSign, Menu, MessageCircle, ShoppingBag, Sparkles, X } from 'lucide-react'
+import { AtSign, Menu, MessageCircle, Moon, ShoppingBag, Sparkles, Sun, X } from 'lucide-react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { BUSINESS_NAME, INSTAGRAM_URL, TIKTOK_URL } from '../config'
 import { useCart } from '../hooks/useCart'
+import { useTheme } from '../hooks/useTheme'
 import { whatsappUrl } from '../utils/whatsapp'
 
 export function Layout() {
   const [open, setOpen] = useState(false)
   const { count } = useCart()
+  const { theme, toggleTheme } = useTheme()
   const links = [['/', 'Inicio'], ['/tienda', 'Tienda'], ['/#categorias', 'Categorías'], ['/#videos', 'Videos'], ['/#contacto', 'Contacto']]
   return <>
     <header className="navbar">
@@ -17,6 +19,7 @@ export function Layout() {
           {links.map(([to, label]) => <NavLink key={label} to={to} onClick={() => setOpen(false)}>{label}</NavLink>)}
         </nav>
         <div className="nav-actions">
+          <button className="icon-button theme-toggle" onClick={toggleTheme} aria-label={theme === 'light' ? 'Activar modo oscuro' : 'Activar modo claro'} title={theme === 'light' ? 'Modo oscuro' : 'Modo claro'}>{theme === 'light' ? <Moon size={20}/> : <Sun size={20}/>}</button>
           <Link to="/carrito" className="icon-button" aria-label={`Carrito con ${count} productos`}><ShoppingBag size={21}/>{count > 0 && <span className="cart-badge">{count}</span>}</Link>
           <button className="icon-button menu-button" onClick={() => setOpen(!open)} aria-label="Abrir menú">{open ? <X/> : <Menu/>}</button>
         </div>

@@ -1,7 +1,16 @@
-export const tiktokVideos = [
-  { id: 1, title: 'Una mesa llena de detalles', tag: 'Matrimonios', image: 'https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=700&q=80', url: 'https://www.tiktok.com/' },
-  { id: 2, title: 'Así preparamos tus pedidos', tag: 'Detrás de cámaras', image: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=700&q=80', url: 'https://www.tiktok.com/' },
-  { id: 3, title: 'Detalles para un día soñado', tag: 'Quinceañeros', image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80', url: 'https://www.tiktok.com/' },
-  { id: 4, title: 'Recuerdos hechos con amor', tag: 'Bautizos', image: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=700&q=80', url: 'https://www.tiktok.com/' },
-  { id: 5, title: 'Celebremos una nueva etapa', tag: 'Promoción', image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=700&q=80', url: 'https://www.tiktok.com/' },
+export interface TikTokVideo {
+  id: string
+  author: string
+  url: string
+}
+
+export const tiktokVideos: TikTokVideo[] = [
+  { id: '7668674115389115668', author: '@vieepgi', url: 'https://www.tiktok.com/@vieepgi/video/7668674115389115668' },
+  { id: '7674171320606756109', author: '@tasq8kmsg8', url: 'https://www.tiktok.com/@tasq8kmsg8/video/7674171320606756109' },
+  { id: '7655800867349744918', author: '@escardii', url: 'https://www.tiktok.com/@escardii/video/7655800867349744918' },
+  { id: '7671341733950655751', author: '@user_foryou536', url: 'https://www.tiktok.com/@user_foryou536/video/7671341733950655751' },
+  { id: '7674983940754574599', author: '@francis_h_s28', url: 'https://www.tiktok.com/@francis_h_s28/video/7674983940754574599' },
 ]
+
+export const getTikTokEmbedUrl = (id: string) =>
+  `https://www.tiktok.com/player/v1/${id}?autoplay=1&loop=1&muted=1&music_info=0&description=0&rel=0&controls=1`
