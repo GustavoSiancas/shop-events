@@ -1,0 +1,15 @@
+import { ChevronLeft, MessageCircle, Minus, Plus, ShoppingBag, Sparkles } from 'lucide-react'
+import { useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { ProductCard } from '../components/ProductCard'
+import { useCart } from '../hooks/useCart'
+import { categoryLabels, products } from '../data/products'
+import { productInquiryUrl } from '../utils/whatsapp'
+
+export function ProductDetail() {
+  const { slug } = useParams(); const product = products.find((p) => p.slug === slug); const [quantity, setQuantity] = useState(1); const [image, setImage] = useState(0); const [added, setAdded] = useState(false); const { addItem } = useCart()
+  if (!product) return <div className="page empty-state"><h1>Producto no encontrado</h1><Link className="button primary" to="/tienda">Volver a la tienda</Link></div>
+  const add = () => { addItem(product, quantity); setAdded(true); window.setTimeout(() => setAdded(false), 1500) }
+  const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 3)
+  return <div className="page detail-page"><div className="container"><Link className="back-link" to="/tienda"><ChevronLeft size={17}/> Volver a la tienda</Link><div className="detail-grid"><div className="gallery"><div className="gallery-main"><img src={product.images[image]} alt={product.name}/></div><div className="thumbnails">{product.images.map((src, i) => <button className={image === i ? 'active' : ''} onClick={() => setImage(i)} key={src}><img src={src} alt={`${product.name}, vista ${i + 1}`}/></button>)}</div></div><div className="detail-info"><p className="kicker">{categoryLabels[product.category]}</p><h1>{product.name}</h1><p className="detail-price">{product.price ? `S/ ${product.price.toFixed(2)}` : 'Precio a consultar'} <small>Precio referencial</small></p><p className="detail-description">{product.description}</p><div className="detail-feature"><Sparkles/><span><strong>Personalizado para ti</strong><small>Elige colores, nombres y fecha de tu celebración.</small></span></div><div className="purchase-row"><div className="quantity"><button onClick={() => setQuantity(Math.max(1, quantity - 1))}><Minus/></button><span>{quantity}</span><button onClick={() => setQuantity(quantity + 1)}><Plus/></button></div><button className="button primary" onClick={add}><ShoppingBag size={18}/>{added ? '¡Agregado!' : 'Agregar al carrito'}</button></div><a className="button whatsapp-outline" href={productInquiryUrl(product, quantity)} target="_blank"><MessageCircle size={18}/> Consultar directamente por WhatsApp</a><p className="detail-footnote">El precio final puede variar según cantidad y personalización.</p></div></div><section className="related"><div className="section-heading"><p className="kicker">También podría interesarte</p><h2>Más detalles para tu <em>celebración</em></h2></div><div className="product-grid related-grid">{related.map((p) => <ProductCard product={p} key={p.id}/>)}</div></section></div></div>
+}

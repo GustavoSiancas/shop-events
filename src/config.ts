@@ -1,0 +1,5 @@
+export const WHATSAPP_NUMBER = '51999999999'
+export const BUSINESS_NAME = 'Celebra Bonito'
+export const PHONE_DISPLAY = '+51 999 999 999'
+export const INSTAGRAM_URL = 'https://instagram.com/'
+export const TIKTOK_URL = 'https://tiktok.com/'
